@@ -1,0 +1,22 @@
+{
+  "name": "ultimatepasswordscheme",
+  "version": "1.0.0",
+  "description": "Password scheme invloving nodes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlanks/UltimatePasswordScheme.git"
+  },
+  "author": "Julian Lankstead",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlanks/UltimatePasswordScheme/issues"
+  },
+  "homepage": "https://github.com/jlanks/UltimatePasswordScheme#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
