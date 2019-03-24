@@ -26,26 +26,35 @@
 
   <script type = "text/javascript">
 
-    var addNode = functon(data, callback){
+    var addNode = function(data, callback){
       callback(data);
-    });
-    var editNode = functon(data, callback){
+    };
+    var editNode = function(data, callback){
       callback(data);
-    });
-    var removeNode = functon(data, callback){
+    };
+    var removeNode = function(data, callback){
       callback(data);
 
-    });
-    var addEdge = functon(data, callback){
+    };
+    var addEdge = function(data, callback){
       callback(data);
-    });
-    var editEdge = functon(data, callback){
+    };
+    var editEdge = function(data, callback){
       callback(data);
-    });
-    var removeEdge = functon(data, callback){
+    };
+    var removeEdge = function(data, callback){
       callback(data);
-    });
+    };
       $.get("/api", function(data){
+        data.options.manipulation = {
+          addNode: addNode,
+          editNode: editNode,
+          removeNode: removeNode,
+          addEdge: addEdge,
+          editEdge: editEdge,
+          removeEdge: removeEdge
+
+        };
         var container = document.getElementById("graph");
         var network = new vis.Network(container, data, data.options);
 
