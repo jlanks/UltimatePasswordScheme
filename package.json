@@ -19,6 +19,7 @@
   "homepage": "https://github.com/jlanks/UltimatePasswordScheme#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "jquery": "^3.3.1",
     "vis": "^4.21.0"
   }
 }

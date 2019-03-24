@@ -5,7 +5,8 @@
     <title>Ultimate Password Scheme</title>
     <script type="text/javascript" src="vis/dist/vis.js"></script>
     <link href="vis/dist/vis.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="CSS/style.css">
+
+    <script type="text/javascript" src="jquery/dist/jquery.js"></script>
 
     <style type="text/css">
       #graph{
@@ -24,20 +25,32 @@
   <div id="graph"></div>
 
   <script type = "text/javascript">
-      var data = {
-        nodes: [
-          {id: "One", label: "1 "},
-          {id: "Two", label: " 2"},
-          {id: "Three", label: "3 "},
-          {id: "Four", label: " 4"},
-          {id: "Five", label: " 5"},
-          {id: "Six", label: " 6"}
-        ],
-        edges: [],
-        options: {}
-      };
-      var container = document.getElementById("graph");
-      var network = new vis.Network(container, data, data.options);
+
+    var addNode = functon(data, callback){
+      callback(data);
+    });
+    var editNode = functon(data, callback){
+      callback(data);
+    });
+    var removeNode = functon(data, callback){
+      callback(data);
+
+    });
+    var addEdge = functon(data, callback){
+      callback(data);
+    });
+    var editEdge = functon(data, callback){
+      callback(data);
+    });
+    var removeEdge = functon(data, callback){
+      callback(data);
+    });
+      $.get("/api", function(data){
+        var container = document.getElementById("graph");
+        var network = new vis.Network(container, data, data.options);
+
+      });
+
   </script>
 
   </body>
