@@ -1,8 +1,12 @@
 var express = require("express");
 var app = express();
-
+var bodyParser = require("body-parser");
+var _ = require("underscore"); 
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
+
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
 
 var data = {
   nodes: [
@@ -16,6 +20,19 @@ var data = {
   edges: [],
   options: {}
 };
+app.post("/api/node", function(req,res){
+  var newNode = req.body;
+  console.log(newNode);
+  var foundNode = _.find(data.nodes, function(node){
+    return node.id ===  newNode.id;
+  });
+  if(foundNode){
+    return;
+  }
+  data.nodes.push(newNode);
+
+  res.send(newNode).end();
+});
 app.use("/api", function(req, res){
   res.send(data).end();
 

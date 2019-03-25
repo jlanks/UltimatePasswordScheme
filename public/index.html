@@ -27,12 +27,21 @@
   <script type = "text/javascript">
 
     var addNode = function(data, callback){
-      callback(data);
-    };
+      var label = prompt("Please enter label:");
+      if(!label){
+        return;
+
+      }
+      data.label = label;
+
+    $.post("/api/node",data, function(result){
+      callback(result);
+    });
+  };
     var editNode = function(data, callback){
       callback(data);
     };
-    var removeNode = function(data, callback){
+    var deleteNode = function(data, callback){
       callback(data);
 
     };
@@ -42,17 +51,17 @@
     var editEdge = function(data, callback){
       callback(data);
     };
-    var removeEdge = function(data, callback){
+    var deleteEdge = function(data, callback){
       callback(data);
     };
       $.get("/api", function(data){
         data.options.manipulation = {
           addNode: addNode,
           editNode: editNode,
-          removeNode: removeNode,
+          deleteNode: deleteNode,
           addEdge: addEdge,
           editEdge: editEdge,
-          removeEdge: removeEdge
+          deleteEdge: deleteEdge
 
         };
         var container = document.getElementById("graph");
