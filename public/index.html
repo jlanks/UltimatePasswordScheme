@@ -39,11 +39,30 @@
     });
   };
     var editNode = function(data, callback){
-      callback(data);
+      var label = prompt("Please enter label:", data.label);
+      if(!label){
+        return;
+
+      }
+      data.label = label;
+      $.ajax({
+        method: "put",
+        url: "/api/node",
+        data: data,
+        success: function(result){
+          callback(result);
+        }
+      })
     };
     var deleteNode = function(data, callback){
-      callback(data);
-
+      $.ajax({
+        method: "delete",
+        url: "/api/node",
+        data: {node: data.nodes[0]},
+        success: function(result){
+          callback(result);
+        }
+      })
     };
     var addEdge = function(data, callback){
       callback(data);

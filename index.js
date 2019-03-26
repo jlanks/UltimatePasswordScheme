@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
-var _ = require("underscore"); 
+var _ = require("underscore");
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 
@@ -17,7 +17,12 @@ var data = {
     {id: "Eight", label: " 8"},
     {id: "Six", label: " 6"}
   ],
-  edges: [],
+  edges: [
+    {from: "One", to: "Three"},
+    {from: "One", to: "Four"},
+    {from: "Two", to: "Three"},
+    {from: "One", to: "Two"}
+  ],
   options: {}
 };
 app.post("/api/node", function(req,res){
@@ -33,9 +38,48 @@ app.post("/api/node", function(req,res){
 
   res.send(newNode).end();
 });
+
+app.put("/api/node", function (req, res){
+    var updatedNode = req.body;
+
+    var realizedNode;
+    _.each(data.nodes, function(node){
+      if(node.id === updatedNode.id){
+        node.label = updatedNode.label;
+        realizedNode = node;
+      }
+    });
+    res.send(realizedNode).end();
+});
 app.use("/api", function(req, res){
   res.send(data).end();
 
+ });
+
+app.delete("/api/node", function(req,res){
+  var deleteNode = req.body.node;
+  var deleteResult = {
+    nodes: [],
+    edges: []
+  };
+  var updatedNodes = _.filter(data.nodes, function(node){
+      var keep = (node.id  !== deleteNode);
+      if(!keep){
+        deleteResult.nodes.push(node);
+      }
+      return keep;
+  });
+  var updatedEdges = _.filter(data.edges, function(edge){
+      var keep = (edge.from  !== deleteNode) || (edge.to !== deleteNode);
+      if(!keep){
+        deleteResult.edges.push(edge);
+      }
+      return keep;
+  });
+  data.nodes = updatedNodes;
+  data.edges = updatedEdges;
+
+  res.send(deleteResult).end();
 });
 
 app.listen(8080, function(){
