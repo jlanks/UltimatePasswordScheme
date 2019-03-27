@@ -36,10 +36,6 @@ data.edges.forEach(function(element){
 });
 
 
-
-
-
-
 //store all the node string, prepare to random
 var nodeChoice=[];
 data.nodes.forEach(function(element){
@@ -101,31 +97,7 @@ app.use("/api", function(req, res){
 
  });
 
-app.delete("/api/node", function(req,res){
-  var deleteNode = req.body.node;
-  var deleteResult = {
-    nodes: [],
-    edges: []
-  };
-  var updatedNodes = _.filter(data.nodes, function(node){
-      var keep = (node.id  !== deleteNode);
-      if(!keep){
-        deleteResult.nodes.push(node);
-      }
-      return keep;
-  });
-  var updatedEdges = _.filter(data.edges, function(edge){
-      var keep = (edge.from  !== deleteNode) || (edge.to !== deleteNode);
-      if(!keep){
-        deleteResult.edges.push(edge);
-      }
-      return keep;
-  });
-  data.nodes = updatedNodes;
-  data.edges = updatedEdges;
 
-  res.send(deleteResult).end();
-});
 
 app.listen(3000, function(){
 
