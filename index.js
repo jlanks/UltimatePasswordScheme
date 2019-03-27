@@ -25,6 +25,36 @@ var data = {
   ],
   options: {}
 };
+
+
+
+//print the data object's edge set:
+data.edges.forEach(function(element){
+    console.log(element);
+    console.log(element.from);
+});
+
+
+
+//store all the node string, prepare to random
+var nodeChoice=[];
+data.nodes.forEach(function(element){
+    nodeChoice.push(element.id);
+});
+nodeChoice.forEach(function(element){
+    console.log(element);
+});
+
+
+//here is the random edge that overwrite the edge array in data object
+var edgeChoice ={};
+data.edges.forEach(function(element){
+    element.from = nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
+    element.to = nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
+    console.log(element);
+});
+
+
 app.post("/api/node", function(req,res){
   var newNode = req.body;
   console.log(newNode);
@@ -82,6 +112,6 @@ app.delete("/api/node", function(req,res){
   res.send(deleteResult).end();
 });
 
-app.listen(8080, function(){
-  console.log("Your server was stated on port 8080");
+app.listen(3000, function(){
+  console.log("Your server was stated on port 3000");
 });

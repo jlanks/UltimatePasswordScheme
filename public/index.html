@@ -15,7 +15,6 @@
         border: 1px solid lightgrey;
         margin: 0 auto;
       }
-
     </style>
 
   </head>
@@ -25,15 +24,12 @@
   <div id="graph"></div>
 
   <script type = "text/javascript">
-
     var addNode = function(data, callback){
       var label = prompt("Please enter label:");
       if(!label){
         return;
-
       }
       data.label = label;
-
     $.post("/api/node",data, function(result){
       callback(result);
     });
@@ -42,7 +38,6 @@
       var label = prompt("Please enter label:", data.label);
       if(!label){
         return;
-
       }
       data.label = label;
       $.ajax({
@@ -81,13 +76,10 @@
           addEdge: addEdge,
           editEdge: editEdge,
           deleteEdge: deleteEdge
-
         };
         var container = document.getElementById("graph");
         var network = new vis.Network(container, data, data.options);
-
       });
-
   </script>
 
   </body>
