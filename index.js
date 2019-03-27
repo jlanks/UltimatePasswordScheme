@@ -32,11 +32,11 @@ var data = {
 data.edges.forEach(function(element){
     console.log(element);
     console.log(element.from);
-<<<<<<< HEAD
+
 });
-=======
-})
->>>>>>> e1c1e4f1764d74f2ea25427e5f38c5e1617ddc89
+
+
+
 
 
 
@@ -44,17 +44,17 @@ data.edges.forEach(function(element){
 var nodeChoice=[];
 data.nodes.forEach(function(element){
     nodeChoice.push(element.id);
-<<<<<<< HEAD
+
 });
 nodeChoice.forEach(function(element){
     console.log(element);
 });
-=======
-})
+
+
 nodeChoice.forEach(function(element){
     console.log(element);
-})
->>>>>>> e1c1e4f1764d74f2ea25427e5f38c5e1617ddc89
+});
+
 
 
 //here is the random edge that overwrite the edge array in data object
@@ -63,11 +63,11 @@ data.edges.forEach(function(element){
     element.from = nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
     element.to = nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
     console.log(element);
-<<<<<<< HEAD
+
 });
-=======
-})
->>>>>>> e1c1e4f1764d74f2ea25427e5f38c5e1617ddc89
+
+
+
 
 
 app.post("/api/node", function(req,res){
@@ -128,9 +128,8 @@ app.delete("/api/node", function(req,res){
 });
 
 app.listen(3000, function(){
-<<<<<<< HEAD
+
   console.log("Your server was stated on port 3000");
-=======
-  console.log("Your server was stated on port 8080");
->>>>>>> e1c1e4f1764d74f2ea25427e5f38c5e1617ddc89
+
+
 });
