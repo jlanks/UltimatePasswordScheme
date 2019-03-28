@@ -34,26 +34,27 @@
       callback(result);
     });
   };
-    var editNode = function(data, callback){
-      var label = prompt("Please enter label:", data.label);
-      if(!label){
-        return;
-      }
-      data.label = label;
-      $.ajax({
-        method: "put",
-        url: "/api/node",
-        data: data,
-        success: function(result){
-          callback(result);
-        }
-      })
-    };
+var editNode = function(data, callback){
+  var label = prompt("Please enter label:", data.label);
+  if(!label){
+    return;
+  }
+  data.label = label;
+  $.ajax({
+    method: "put",
+    url: "/api/node",
+    data: data,
+    success: function(result){
+      callback(result);
+    }
+  })
+};
     /*
     var deleteNode = function(data, callback){
       callback(data);
     };
     */
+
 var deleteNode = function(data, callback){
   $.ajax({
     method: "delete",
@@ -64,15 +65,37 @@ var deleteNode = function(data, callback){
     }
   })
 };
-    var addEdge = function(data, callback){
-      callback(data);
-    };
-    var editEdge = function(data, callback){
-      callback(data);
-    };
-    var deleteEdge = function(data, callback){
-      callback(data);
-    };
+
+var addEdge = function(data, callback){
+  $.post("/api/edge", data, function(result){
+    callback(result);
+  });
+};
+
+var editEdge = function(data, callback){
+  $.ajax({
+    method: "put",
+    url: "/api/edge",
+    data: data,
+    success: function(result){
+      callback(result);
+}
+});
+};
+
+
+var deleteEdge = function(data, callback){
+  $.ajax({
+    method: "delete",
+    url: "/api/edge",
+    data: {edge: data.edges[0]},
+    success: function(result){
+      callback(result);
+    }
+  });
+};
+
+
       $.get("/api", function(data){
         data.options.manipulation = {
           addNode: addNode,

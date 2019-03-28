@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var _ = require("underscore");
+var uuid = require("uuid-v4");
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 
@@ -18,10 +19,10 @@ var data = {
     {id: "Six", label: " 6"}
   ],
   edges: [
-    {from: "One", to: "Three"},
-    {from: "One", to: "Four"},
-    {from: "Two", to: "Three"},
-    {from: "One", to: "Two"}
+    {id: "1", from: "One", to: "Three"},
+    {id: "2",  from: "One", to: "Four"},
+    {id: "3", from: "Two", to: "Three"},
+    {id: "4", from: "One", to: "Two"}
   ],
   options: {}
 };
@@ -111,7 +112,7 @@ app.delete("/api/node", function(req,res){
   var updatedEdges = _.filter(data.edges, function(edge){
     var keep = (edge.from  !== deleteNode) || (edge.to  !== deleteNode);
     if(!keep){
-      deleteResult.edges.push(node);
+      deleteResult.edges.push(edge);
     }
     return keep;
   });
@@ -123,6 +124,52 @@ app.delete("/api/node", function(req,res){
 
 
 });
+
+app.post("/api/edge", function(req,res){
+  var newEdge = req.body;
+
+  newEdge.id = uuid();
+  data.edges.push(newEdge);
+
+  res.send(newEdge).end();
+
+});
+
+app.put("/api/edge", function(req, res){
+  var updatedEdge = req.body;
+
+  var realizedEdge;
+  _.each(data.edges, function(edge){
+      if(edge.id === updatedEdge.id){
+        edge.from = updatedEdge.from;
+        edge.to = updatedEdge.to;
+        realizedEdge = edge;
+      }
+  });
+  res.send(realizedEdge).end();
+});
+
+app.delete("/api/edge", function(req,res){
+  var deleteEdge = req.body.edge;
+  var deleteResult = {
+    nodes: [],
+    edges: []
+  };
+
+  var updatedEdges = _.filter(data.edges, function(edge){
+    var keep = (edge.id !== deleteEdge);
+
+    if (!keep){
+      deleteResult.edges.push(edge);
+
+    }
+    return keep;
+  });
+  data.edges = updatedEdges;
+  res.send(deleteResult).end();
+
+});
+
 app.use("/api", function(req, res){
   res.send(data).end();
 
