@@ -49,9 +49,21 @@
         }
       })
     };
+    /*
     var deleteNode = function(data, callback){
       callback(data);
     };
+    */
+var deleteNode = function(data, callback){
+  $.ajax({
+    method: "delete",
+    url: "/api/node",
+    data: {node: data.nodes[0] },
+    success: function(result){
+      callback(result);
+    }
+  })
+};
     var addEdge = function(data, callback){
       callback(data);
     };
