@@ -22,17 +22,21 @@ var data = {
 */
   //
   nodes: randomNodes(),
-  edges: [
+  edges: randomEdges(),
+  /*
+  edges:
+  [
     {id: "1", from: "Node 1", to: "Node 3"},
     {id: "2",  from: "Node 1", to: "Node 4"},
     {id: "3", from: "Node 2", to: "Node 3"},
     {id: "4", from: "Node 1", to: "Node 2"}
   ],
+*/
   options: {}
 };
 
 // create an array of nodes
-console.log(randomNodes());
+//console.log(randomNodes());
  function randomNodes(){
   var nodes = [];
   for(i = 1;i<10;i++){
@@ -45,7 +49,22 @@ console.log(randomNodes());
   return nodes;
 }
 
-// create an array of random edges
+// create an array of random edges for the graph
+function randomEdges(){
+ var edges = [];
+ var nodes = randomNodes();
+ for(i = 1;i<10;i++){
+   var edge = {id: null, from: null, to: null};
+   edge.id = "" + i;
+   edge.from = "" + nodes[Math.floor(Math.random() * nodes.length)].label;
+   edge.to = "" + nodes[Math.floor(Math.random() * nodes.length)].label;
+
+   edges.push(edge);
+
+
+ }
+ return edges;
+}
 
 // create a random graph object
 
