@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
 var data = {
+  /*
   nodes: [
     {id: "One", label: "1 "},
     {id: "Two", label: " 2"},
@@ -18,15 +19,35 @@ var data = {
     {id: "Eight", label: " 8"},
     {id: "Six", label: " 6"}
   ],
+*/
+  //
+  nodes: randomNodes(),
   edges: [
-    {id: "1", from: "One", to: "Three"},
-    {id: "2",  from: "One", to: "Four"},
-    {id: "3", from: "Two", to: "Three"},
-    {id: "4", from: "One", to: "Two"}
+    {id: "1", from: "Node 1", to: "Node 3"},
+    {id: "2",  from: "Node 1", to: "Node 4"},
+    {id: "3", from: "Node 2", to: "Node 3"},
+    {id: "4", from: "Node 1", to: "Node 2"}
   ],
   options: {}
 };
 
+// create an array of nodes
+console.log(randomNodes());
+ function randomNodes(){
+  var nodes = [];
+  for(i = 1;i<10;i++){
+    var node = {id: null, label: null};
+    node.id = "" + i;
+    node.label = "Node " + i;
+    nodes.push(node);
+
+  }
+  return nodes;
+}
+
+// create an array of random edges
+
+// create a random graph object
 
 
 //print the data object's edge set:
