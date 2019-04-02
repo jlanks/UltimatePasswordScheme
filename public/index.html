@@ -21,9 +21,35 @@
   <body>
   <h1>Ultimate Password Scheme</h1>
   <p><a href="Password.html">Password Scheme Test</a></p>
+  <div>
+    Username : <input type ="text" id="txtun"  />
+    Password:  <input type ="text" id="txtpw"  />
+    <br/><br/>
+    <input id ="btn" type="button" value="TEST"  />
+
+
+
+
+  </div>
   <div id="graph"></div>
 
   <script type = "text/javascript">
+  $('#btn').click(function(){
+
+    var username = $('#txtun').val();
+    var password = $('#txtpw').val();
+
+    $.ajax({
+        type: 'GET',
+        url: "api/users/",
+        dataType: 'json',
+        headers :{
+          'Authorization' : 'Basic' +
+        }
+
+    })
+
+  })
     var addNode = function(data, callback){
       var label = prompt("Please enter label:");
       if(!label){

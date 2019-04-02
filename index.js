@@ -1,8 +1,10 @@
 var express = require("express");
+var sqlite3 = require('sqlite3').verbose() //verbose provides more detailed stack trace
 var app = express();
 var bodyParser = require("body-parser");
 var _ = require("underscore");
 var uuid = require("uuid-v4");
+var db = new sqlite3.Database('data/userspw.db')
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
 
@@ -53,7 +55,7 @@ var data = {
 function randomEdges(){
  var edges = [];
  var nodes = randomNodes();
- for(i = 1;i<10;i++){
+ for(i = 1;i<15;i++){
    var edge = {id: null, from: null, to: null};
    edge.id = "" + i;
    edge.from = "" + nodes[Math.floor(Math.random() * nodes.length)].label;
@@ -97,8 +99,14 @@ nodeChoice.forEach(function(element){
 //here is the random edge that overwrite the edge array in data object
 var edgeChoice ={};
 data.edges.forEach(function(element){
-    element.from = nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
-    element.to = nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
+  var edgeFrom =nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
+    element.from = edgeFrom;
+    var edgeTo = nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
+    while(edgeTo == edgeFrom){
+      edgeTo = nodeChoice[Math.floor(Math.random()*nodeChoice.length)];
+    }
+
+    element.to = edgeTo;
     console.log(element);
 
 });
