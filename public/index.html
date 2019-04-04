@@ -22,7 +22,7 @@
   <h1>Ultimate Password Scheme</h1>
   <p><a href="Password.html">Password Scheme Test</a></p>
   <div>
-    Username : <input type ="text" id="txtun"  />
+    Username: <input type ="text" id="txtun"  />
     Password:  <input type ="text" id="txtpw"  />
     <br/><br/>
     <input id ="btn" type="button" value="TEST"  />
@@ -34,32 +34,33 @@
   <div id="graph"></div>
 
   <script type = "text/javascript">
-  $('#btn').click(function(){
 
-    var username = $('#txtun').val();
-    var password = $('#txtpw').val();
+$('#btn').click(function(){
+  var username = $('#txtun').val();
+  var password = $('#txtpw').val();
 
-    $.ajax({
-        type: 'GET',
-        url: "api/users/",
-        dataType: 'json',
-        headers :{
-          'Authorization' : 'Basic' +
-        }
-
-    })
+  $.ajax({
+      type: 'GET',
+      url: "api/users/",
+      dataType: 'json',
+      headers :{
+        'Authorization' : 'Basic' 
+      }
 
   })
-    var addNode = function(data, callback){
-      var label = prompt("Please enter label:");
-      if(!label){
-        return;
-      }
-      data.label = label;
-    $.post("/api/node",data, function(result){
-      callback(result);
-    });
-  };
+
+})
+var addNode = function(data, callback){
+  var label = prompt("Please enter label:");
+  if(!label){
+    return;
+  }
+  data.label = label;
+  $.post("/api/node",data, function(result){
+    callback(result);
+  });
+};
+
 var editNode = function(data, callback){
   var label = prompt("Please enter label:", data.label);
   if(!label){
@@ -122,18 +123,18 @@ var deleteEdge = function(data, callback){
 };
 
 
-      $.get("/api", function(data){
-        data.options.manipulation = {
-          addNode: addNode,
-          editNode: editNode,
-          deleteNode: deleteNode,
-          addEdge: addEdge,
-          editEdge: editEdge,
-          deleteEdge: deleteEdge
-        };
-        var container = document.getElementById("graph");
-        var network = new vis.Network(container, data, data.options);
-      });
+$.get("/api", function(data){ //this is what called when a website opens.
+  data.options.manipulation = { //this is where event handler get added
+    addNode: addNode,
+    editNode: editNode,
+    deleteNode: deleteNode,
+    addEdge: addEdge,
+    editEdge: editEdge,
+    deleteEdge: deleteEdge
+  };
+  var container = document.getElementById("graph");
+  var network = new vis.Network(container, data, data.options);//graph added to the page
+});
   </script>
 
   </body>
